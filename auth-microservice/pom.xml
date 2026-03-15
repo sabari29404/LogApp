@@ -14,7 +14,7 @@
     <groupId>com.example</groupId>
     <artifactId>auth-microservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <n>auth-microservice</n>
+    <name>auth-microservice</name>
     <description>JWT + OAuth2 Auth Microservice — Spring Boot 4, JDK 25</description>
 
     <properties>
