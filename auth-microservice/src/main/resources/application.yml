@@ -3,9 +3,9 @@ spring:
     name: auth-microservice
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/authdb
-    username: postgres
-    password: YOUR_DB_PASSWORD
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/authdb}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -21,13 +21,13 @@ spring:
       client:
         registration:
           google:
-            client-id: YOUR_GOOGLE_CLIENT_ID
-            client-secret: YOUR_GOOGLE_CLIENT_SECRET
+            client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID:YOUR_GOOGLE_CLIENT_ID}
+            client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET:YOUR_GOOGLE_CLIENT_SECRET}
             scope: [email, profile]
             redirect-uri: "http://localhost:8080/login/oauth2/code/google"
           github:
-            client-id: YOUR_GITHUB_CLIENT_ID
-            client-secret: YOUR_GITHUB_CLIENT_SECRET
+            client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENT_ID:YOUR_GITHUB_CLIENT_ID}
+            client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENT_SECRET:YOUR_GITHUB_CLIENT_SECRET}
             scope: [user:email, read:user]
             redirect-uri: "http://localhost:8080/login/oauth2/code/github"
 
@@ -38,17 +38,17 @@ server:
 
 app:
   jwt:
-    secret: "YOUR_JWT_SECRET_MIN_32_CHARACTERS_LONG"
+    secret: ${APP_JWT_SECRET:your_jwt_secret_minimum_32_characters_long_here}
     expiration-ms: 600000
 
 logging:
   level:
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
     registry-fetch-interval-seconds: 5
   instance:
     prefer-ip-address: true

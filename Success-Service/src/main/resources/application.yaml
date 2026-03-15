@@ -1,13 +1,13 @@
 spring:
   application:
     name: Success-Service
-  thymeleaf:
-    cache: false
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/companies
-    username: postgres
-    password: Venkat@08
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/authdb}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,12 +21,12 @@ server:
 
 app:
   jwt:
-    secret: "3cfa76ef14937c1c0ea519f8fc057a80fcd04a7958d2529b5e78f7b12345678901234"
+    secret: ${APP_JWT_SECRET:your_jwt_secret_minimum_32_characters_long_here}
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
     registry-fetch-interval-seconds: 5
   instance:
     prefer-ip-address: true
