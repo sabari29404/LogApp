@@ -4,8 +4,9 @@ import com.example.auth.util.JwtUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -14,12 +15,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
+
 @Component
-@RequiredArgsConstructor
+
 public class FormLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final JwtUtil jwtUtil;
+    private static final Logger log = LoggerFactory.getLogger(FormLoginSuccessHandler.class);
+
+    @Autowired
+    public FormLoginSuccessHandler(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

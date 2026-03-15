@@ -4,7 +4,7 @@ import com.example.auth.filter.JwtAuthFilter;
 import com.example.auth.service.CustomOAuth2UserService;
 import com.example.auth.service.FormLoginSuccessHandler;
 import com.example.auth.service.OAuth2SuccessHandler;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -26,13 +26,21 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
+
 public class SecurityConfig {
 
     private final JwtAuthFilter           jwtAuthFilter;
     private final CustomOAuth2UserService oAuth2UserService;
     private final OAuth2SuccessHandler    oAuth2SuccessHandler;
     private final FormLoginSuccessHandler formLoginSuccessHandler;
+
+    @Autowired
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, CustomOAuth2UserService oAuth2UserService, OAuth2SuccessHandler oAuth2SuccessHandler, FormLoginSuccessHandler formLoginSuccessHandler) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.oAuth2UserService = oAuth2UserService;
+        this.oAuth2SuccessHandler = oAuth2SuccessHandler;
+        this.formLoginSuccessHandler = formLoginSuccessHandler;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {

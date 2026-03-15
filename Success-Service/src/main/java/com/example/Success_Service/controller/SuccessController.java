@@ -5,8 +5,9 @@ import com.example.Success_Service.service.CompanyService;
 import com.example.Success_Service.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
+
 @RestController
-@RequiredArgsConstructor
+
 public class SuccessController {
 
     private final CompanyService companyService;
     private final JwtUtil jwtUtil;
+    private static final Logger log = LoggerFactory.getLogger(SuccessController.class);
+
+    @Autowired
+    public SuccessController(CompanyService companyService, JwtUtil jwtUtil) {
+        this.companyService = companyService;
+        this.jwtUtil = jwtUtil;
+    }
 
     // GET /api/user — returns authenticated user info as JSON
     @GetMapping("/api/user")
