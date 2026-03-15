@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: API-Gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          httpclient:
+            response-timeout: 10s
+          routes:
+            # Auth-service: login, oauth, api/auth endpoints
+            - id: auth-microservice
+              uri: lb://auth-microservice
+              predicates:
+                - Path=/login,/logout,/api/auth/**,/oauth2/**,/login/oauth2/**,/error
+              filters:
+                - RemoveRequestHeader=Accept-Encoding
+
+            # Success-Service: user info and companies REST APIs
+            - id: Success-Service
+              uri: lb://Success-Service
+              predicates:
+                - Path=/api/user,/api/companies
+
+server:
+  port: 8000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true

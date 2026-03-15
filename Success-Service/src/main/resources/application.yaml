@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: Success-Service
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/companies
+    username: postgres
+    password: Venkat@08
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8001
+
+app:
+  jwt:
+    secret: "3cfa76ef14937c1c0ea519f8fc057a80fcd04a7958d2529b5e78f7b12345678901234"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
