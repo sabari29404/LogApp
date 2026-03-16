@@ -5,7 +5,7 @@ RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apac
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean package -Dmaven.test.skip=true
 
 FROM openjdk:25-ea-jdk
 WORKDIR /app
